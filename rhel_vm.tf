@@ -78,6 +78,11 @@ resource "aws_instance" "rhel_webserver" {
     device_index         = 0
   }
 
+  network_interface {
+    network_interface_id = aws_network_interface.rhel_private_interface.id 
+    device_index         = 1
+  }
+
   tags = {
     Name = "RHEL-VM"
   }
