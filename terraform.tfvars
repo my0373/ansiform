@@ -9,5 +9,11 @@ aws_region = "eu-west-1"
 # https://eu-west-1.console.aws.amazon.com/ec2/home?region=eu-west-1#AMICatalog:
 */
 
+# The AMI Image to deploy
 rhel_ami = "ami-01a6233315e045110"
 
+# The ec2 key pair to deploy on the hosts
+ec2_key_pair_name = "laptop"
+
+# The AWS ec2 instance size
+ec2_instance_type = "t3.micro"

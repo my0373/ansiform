@@ -6,6 +6,17 @@
 #   default = true
 # }
 
+variable "ec2_key_pair_name" {
+    type = string
+    description = "The EC2 key pair name"
+  
+}
+variable "ec2_instance_type" {
+    type = string
+    description = "The EC2 instance type" 
+  default = "t3.small"
+  
+}
 variable "rhel_ami" {
     type        = string
     description = "The RHEL AMI Image to use"
@@ -59,7 +70,8 @@ resource "aws_network_interface" "rhel_private_interface" {
 
 resource "aws_instance" "rhel_webserver" {
   ami = var.rhel_ami
-  instance_type = "t3.small"
+  instance_type = "${var.ec2_instance_type}"
+
 
   network_interface {
     network_interface_id = aws_network_interface.rhel_public_interface.id 
@@ -70,8 +82,9 @@ resource "aws_instance" "rhel_webserver" {
     Name = "RHEL-VM"
   }
 
-  key_name = "laptop"
+  key_name = var.ec2_key_pair_name
 }
+
 
 resource "aws_network_interface_sg_attachment" "internalattachment" {
   depends_on           = [aws_network_interface.rhel_public_interface]
