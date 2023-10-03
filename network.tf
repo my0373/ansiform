@@ -1,3 +1,7 @@
+variable "aws_region_az" {
+  type = string
+  description = "The AZ"
+}
 variable "private_subnet_vpc_range" {
     type        = string
     description = "The VPC network address space"
@@ -43,6 +47,7 @@ resource "aws_subnet" "public_subnet" {
 
  vpc_id     = aws_vpc.tf_vpc.id
  cidr_block = var.public_subnet_cidrs
+ availability_zone = var.aws_region_az
  
  tags = {
    Name = "Public Subnet"
@@ -54,6 +59,7 @@ resource "aws_subnet" "private_subnet" {
 
  vpc_id     = aws_vpc.tf_vpc.id
  cidr_block = var.private_subnet_cidrs
+ availability_zone = var.aws_region_az
  
  tags = {
    Name = "Private Subnet"

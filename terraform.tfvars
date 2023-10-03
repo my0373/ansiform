@@ -1,7 +1,7 @@
 public_subnet_cidrs = "10.0.1.0/24"
 private_subnet_cidrs = "10.0.2.0/24"
 aws_region = "eu-west-1"
-
+aws_region_az= "eu-west-1a"
 /*  
 # TODO: Make this a data lookup. 
 # For now it is hardcoded to eu-west-1 where I test. 
