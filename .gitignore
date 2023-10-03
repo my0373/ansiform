@@ -1,1 +1,6 @@
 *tfstate*
+total 80
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup

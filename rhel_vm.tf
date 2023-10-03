@@ -72,3 +72,9 @@ resource "aws_instance" "rhel_webserver" {
 
   key_name = "laptop"
 }
+
+resource "aws_network_interface_sg_attachment" "internalattachment" {
+  depends_on           = [aws_network_interface.rhel_public_interface]
+  security_group_id    = aws_security_group.public_allow.id
+  network_interface_id = aws_network_interface.rhel_public_interface.id
+}
