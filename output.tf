@@ -19,6 +19,7 @@ output "demo_tag" {
 }
 
 output "eip_public" {
-  value = aws_eip.public_eip
+  value = aws_eip.public_eip.public_ip
 }
+
 

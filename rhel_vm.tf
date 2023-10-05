@@ -96,3 +96,18 @@ resource "aws_network_interface_sg_attachment" "internalattachment" {
   security_group_id    = aws_security_group.public_allow.id
   network_interface_id = aws_network_interface.rhel_public_interface.id
 }
+
+
+
+resource "ansible_host" "rhel_vm" {
+  name   = aws_instance.rhel_webserver.public_ip
+  groups = ["rhel"]
+
+  variables = {
+    ansible_user                 = "ec2-user",
+    ansible_ssh_private_key_file = "~/.ssh/aws-test.pem",
+    ansible_python_interpreter   = "/usr/bin/python3"
+
+
+  }
+}
