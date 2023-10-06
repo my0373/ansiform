@@ -1,0 +1,4 @@
+# Set required RAM lower than supported
+required_ram: 4096
+automationedacontroller_controller_verify_ssl: false
+

@@ -1,0 +1,10 @@
+---
+
+- name: deploy vms with terraform
+  hosts: localhost
+  gather_facts: false
+  tags: infra
+  vars:
+    terraform_state: present
+  roles:
+  - terraform

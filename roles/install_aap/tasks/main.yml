@@ -1,0 +1,44 @@
+---
+
+- name: unpack the tar file
+  ansible.builtin.unarchive:
+    src: "{{ ansible_user_dir }}/aap.tar.gz"
+    dest: "{{ ansible_user_dir }}"
+    remote_src: yes
+
+- name: find controller directory
+  ansible.builtin.find: 
+    paths: "{{ ansible_user_dir }}"
+    patterns: ansible-automation-platform-*
+    file_type: directory
+  register: aap_dir
+
+- name: set fact for aap install directory
+  ansible.builtin.set_fact:
+    aap_install_dir: "{{ aap_dir.files[0].path }}"
+
+#- name: set aap version
+#set_fact:
+#aap_version: "{{ aap_dir.files[0].path.split('ansible-automation-platform-setup-bundle-')[1] }}"
+
+- name: template out inventory file
+  ansible.builtin.template:
+    src: inventory.j2
+    dest: "{{ aap_install_dir }}/inventory"
+
+- name: template out installer vars
+  ansible.builtin.template:
+    src: aap_install_vars.yml.j2
+    dest: "{{ aap_install_dir }}/aap_install_vars.yml"
+
+- name: configure ansible
+  ansible.builtin.copy:
+    src: ansible.cfg
+    dest: "{{ aap_install_dir }}"
+
+- name: run aap installer
+  ansible.builtin.shell: 
+    chdir: "{{ aap_install_dir }}"
+    cmd: ./setup.sh -e @aap_install_vars.yml
+  become: true
+  when: install_aap

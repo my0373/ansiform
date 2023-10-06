@@ -1,0 +1,13 @@
+---
+
+- name: update route53 entry
+  community.aws.route53:
+    state: present
+    zone: "{{ dns_zone }}"
+    record: "{{ tags.Name }}.{{ dns_zone }}"
+    type: A
+    ttl: 7200
+    value: "{{ public_ip_address }}"
+    wait: no
+    overwrite: true
+  delegate_to: localhost

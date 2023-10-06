@@ -1,0 +1,11 @@
+---
+
+- name: set fact for postgresql db server
+  ansible.builtin.set_fact:
+    aap_pgsql_server: "{{ hostvars[groups['tag_Name_aap_postgres'][0]]['private_dns_name'] }}"
+  run_once: true
+
+- name: set fact for eda server public address
+  ansible.builtin.set_fact:
+    aap_eda_public: "{{ hostvars[groups['tag_Name_aap_eda'][0]]['tags']['Name'] }}.{{ hostvars[groups['tag_Name_aap_eda'][0]]['dns_zone'] }}"
+  run_once: true

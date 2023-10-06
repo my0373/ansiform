@@ -1,0 +1,8 @@
+---
+
+- name: manage aap infrastructure with terraform
+  cloud.terraform.terraform:
+    project_path: "{{ playbook_dir }}/tf"
+    binary_path: /usr/bin/terraform
+    state: "{{ terraform_state }}"
+    force_init: true

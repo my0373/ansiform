@@ -1,0 +1,21 @@
+---
+- name: Plan and apply terraform
+  hosts: localhost
+  vars: 
+    project_dir: "./"
+    tf_bin: "/usr/bin/terraform"
+    tf_state: present
+  tasks:
+    - name: Apply the terraform
+      community.general.terraform:
+        project_path: '{{ project_dir }}'
+        binary_path: "{{ tf_bin }}"
+        state: "{{ tf_state }}"
+        force_init: true
+      ignore_errors: yes
+      register: tout 
+
+    #- name: debug
+   #  ansible.builtin.debug:
+   #    var: tout
+

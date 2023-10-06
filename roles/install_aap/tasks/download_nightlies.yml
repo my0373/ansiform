@@ -1,0 +1,6 @@
+---
+
+- name: download nightlies aap.tar.gz
+  get_url:
+    url: "{{ aap_nightlies_url }}"
+    dest: "{{ ansible_user_dir }}/aap.tar.gz"

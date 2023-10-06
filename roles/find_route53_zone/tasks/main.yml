@@ -1,0 +1,12 @@
+---
+
+- name: find hosted zone
+  community.aws.route53_info:
+    query: hosted_zone
+  register: hosted_zones
+  delegate_to: localhost
+  run_once: true
+
+- name: set fact for dns zone
+  ansible.builtin.set_fact:
+    dns_zone: "{{ hosted_zones.HostedZones[0].Name[:-1] }}"

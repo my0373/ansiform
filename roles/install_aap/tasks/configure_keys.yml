@@ -1,0 +1,25 @@
+---
+
+- name: generate ssh keypair
+  community.crypto.openssh_keypair:
+    path: "{{ ansible_user_dir }}/.ssh/id_rsa"
+  delegate_to: "{{ groups['tag_Name_aap_controller'][0]}}"
+  run_once: true
+  register: key
+
+- name: create public key on all nodes
+  ansible.builtin.lineinfile:
+    path: "{{ ansible_user_dir }}/.ssh/authorized_keys"
+    line: "{{ key.public_key }}"
+
+- name: copy key for root user
+  ansible.builtin.copy:
+    remote_src: true
+    src: "{{ ansible_user_dir }}/.ssh/id_rsa"
+    dest: /root/.ssh
+    owner: root
+    group: root
+    mode: 0600
+  delegate_to: "{{ groups['tag_Name_aap_controller'][0]}}"
+  run_once: true
+  become: true

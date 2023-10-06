@@ -1,0 +1,11 @@
+---
+- name: Plan and apply terraform
+  hosts: localhost
+  tasks:
+    - name: Apply the terraform
+      community.general.terraform:
+        project_path: "./tf"
+        binary_path: "/usr/bin/terraform"
+        state: present
+        force_init: true
+
