@@ -1,4 +1,4 @@
 ---
 plugin: cloud.terraform.terraform_provider
-project_path: /home/myork/ansiform
+project_path: ./tf/
 state_file: terraform.tfstate
